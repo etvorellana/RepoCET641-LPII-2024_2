@@ -51,4 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 AulaT02/output/*
+AulaT03/output/*
+AulaT04/output/*
 .vscode/*
