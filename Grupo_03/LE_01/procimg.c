@@ -48,7 +48,7 @@ void geraImgGreyW(unsigned char img[640][480]){
     }
 }
 //Q5
-void drwLin(unsigned char img[tamanho][tamanho], int xA, int yA, int xB, int yB, unsigned char pixel){
+void drwLin(unsigned char img[altura][largura], int xA, int yA, int xB, int yB, unsigned char pixel){
     int y, x = xA, z = xB, i;
     float m, b, teste;
 
