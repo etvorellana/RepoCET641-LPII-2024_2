@@ -1,3 +1,4 @@
+#include <stdlib.h>
 
 unsigned char geraGreyPixel(int tipo){
     int i = rand() % 100 + 1;
@@ -85,14 +86,18 @@ int pixelMin(unsigned char img[640][480]){
     return menor;
 }
 
-void imgHistogram(unsigned char img[640][480], int hist[255]){
-    
-    unsigned char histograma[256];
-
+void imgHistogram(unsigned char img[640][480], int hist[256]){
     for(int i = 0; i < 640; i++){
         for(int j = 0; j < 480; j++){
-            histograma[(img[i][j])] += 1;
+            hist[(img[i][j])] += 1;
         }
     }
+}
 
+void imgRandom(unsigned char img[640][480]){
+    for(int i = 0; i < 640; i++){
+        for(int j = 0; j < 480; j++){
+            img[i][j] = rand()%256;
+        }
+    }
 }

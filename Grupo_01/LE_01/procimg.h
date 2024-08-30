@@ -18,8 +18,8 @@ int pixelMax(unsigned char img[640][480]);
 
 int pixelMin(unsigned char img[640][480]);
 
-void imgHistogram(unsigned char img[640][480], int hist[255]);
+void imgHistogram(unsigned char img[640][480], int hist[256]);
 
-
+void imgRandom(unsigned char img[640][480]);
 
 
