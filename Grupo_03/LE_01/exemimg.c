@@ -61,6 +61,31 @@ int main(){
     }
     return 0;
 }
+//Q5
+include <stdio.h>
+#include "procimg.h"
+#define altura 640
+#define largura 480
+
+int main() {
+    int i, j, x1, y1, x2, y2;
+    unsigned char img[altura][largura], pixel = 178;
+
+    for(i = 0; i < altura; i++){
+        for(j = 0; j < largura; j++) img[i][j] = 176;
+    }
+    printf("Digite os valores de y1, e x1:\n");
+    scanf("%d%d", &y1, &x1);
+    printf("Digite os valores de y2 e x2:\n");
+    scanf("%d%d", &y2, &x2);
+    drwLin(img,x1, y1, x2, y2, pixel);
+
+    for(i = 0; i < altura; i++){
+        printf("\n");
+        for(j = 0; j < largura; j++) printf("%c", img[i][j]);
+    }
+    return 0;
+}
 //Q6
 #include <stdio.h>
 #include "procimg.h"
