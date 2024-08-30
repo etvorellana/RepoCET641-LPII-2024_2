@@ -47,6 +47,29 @@ void geraImgGreyW(unsigned char img[640][480]){
         }
     }
 }
+//Q5
+void drwLin(unsigned char img[tamanho][tamanho], int xA, int yA, int xB, int yB, unsigned char pixel){
+    int y, x = xA, z = xB, i;
+    float m, b, teste;
+
+    img[yA][xA] = pixel;
+    img[yB][xB] = pixel;
+
+    if(xA > xB){
+        x = xB;
+        z = xA;
+    }
+    m = (yA - yB)/(xA - xB);
+    b = yA - m*xA;
+
+    for(i = x; i <= z; i++){
+        y = m * i + b;
+        teste = m * x + b;
+        if(teste - y > 0.50) img[y+1][i] = pixel;
+        else img[y][i] = pixel;
+    }
+
+}
 //Q6
 void drwRect(unsigned char img[640][480], int x, int y, int larg, int alt, unsigned char pixel){
     for(int i = y; i < y+alt; i++){
