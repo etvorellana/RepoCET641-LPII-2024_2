@@ -26,6 +26,8 @@ void geraImgGreyB(unsigned char img[640][480]);
 //Q4
 void geraImgGreyW(unsigned char img[640][480]);
 /*função que preenche todos os pixels da matriz img com o valor 0*/
+//Q5
+void drwLin(unsigned char img[tamanho][tamanho], int xA, int yA, int xB, int yB, unsigned char pixel);
 //Q6
 void drwRect(unsigned char img[640][480], int x, int y, int larg, int alt, unsigned char pixel);
 /* 
