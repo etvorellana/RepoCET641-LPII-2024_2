@@ -55,6 +55,20 @@ void drwLin(unsigned char img[altura][largura], int xA, int yA, int xB, int yB, 
     img[yA][xA] = pixel;
     img[yB][xB] = pixel;
 
+    if(xA == xB){
+       if(yA > yB){
+         y = yB;
+         i = yA;
+}
+       else{
+         y = yA;
+         i = yB;
+       }
+       for(x = y; x <= i; x++) img[x][xA] = pixel;
+
+       return;
+}
+
     if(xA > xB){
         x = xB;
         z = xA;
