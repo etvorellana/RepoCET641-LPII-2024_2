@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define linha 420
-#define coluna 20
+#define linha 480
+#define coluna 640
 #define N 640
 //Q1
 unsigned char geraGreyPixel (int tipo) {
