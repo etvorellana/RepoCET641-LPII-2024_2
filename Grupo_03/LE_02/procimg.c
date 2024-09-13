@@ -1,9 +1,18 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define linha 480
-#define coluna 640
+#define linha 420
+#define coluna 20
 #define N 640
+
+void preencherimg(unsigned char img[linha][coluna],int pixel,int i,int j){
+    if(i>=linha || j>=coluna) return; //condição de parada
+
+    img[i][j]=pixel; //preenche com o valor inserido
+    preencherimg(img,pixel,i,j+1); //preenche até o valor máximo de j
+    if(j==0)   preencherimg(img,pixel,i+1,0); //quando j chega no limite, vai para próxima linha
+}
+
 //Q1
 unsigned char geraGreyPixel (int tipo) {
     unsigned char num;
@@ -34,44 +43,30 @@ void geraLinhaR(unsigned char array [], int tipo) {
     geraLinhaR (array, tipo);
 }
 //Q2
-int num2 = linha * coluna;
-
+int L = 0, C = 0;
 void geraImgGreyFull_R(unsigned char img[linha][coluna], unsigned char pixel){
-    if(num2 == 0){                     //testa se num2 chegou a 0
-        num2 = linha * coluna;          //reseta num2 para que a função possa ser chamada novamente
-        return;                      //encerra a função
-    }
-    num2--;                            //decrementa num2 para controlar a quantidade de vezes que a função foi chamada
-    img[0][0] = pixel;              //atribui o valor 0 ao pixel atual
-    geraImgGreyFull_R(&img[0][1], pixel);     //chama a função novamente, passando o endereço do próximo pixel
+    preencherimg(img,pixel,0,0);
 }
 //Q3
-int num3 = linha*coluna;
 void geraImgGreyB_R(unsigned char img[linha][coluna]){
-      if(num3 == 0){           //testa se num3 chegou a 0
-        num3 = linha * coluna;     //reseta num3 para que a função possa ser chamada novamente
-        return;             //encerra a função
-    }
-    num3--;                    //decrementa num3 para controlar a quantidade de vezes que a função foi chamada
-    img[0][0] = 0;          //atribui o valor 0 ao pixel atual
-    geraImgGreyB_R(&img[0][1]);     //chama a função novamente, passando o endereço do próximo pixel
+      geraImgGreyFull_R (img, 0);
 }
 
 //Q4
-void preencherimg(unsigned char img[480][640],int pixel,int i,int j){
-    if(i>=480 || j>=640) return; //condição de parada
-
-    img[i][j]=pixel; //preenche com o valor inserido
-    preencherimg(img,pixel,i,j+1); //preenche até o valor máximo de j
-    if(j==0)   preencherimg(img,pixel,i+1,0); //quando j chega no limite, vai para próxima linha
-}
-void geraImgGreyW_R(unsigned char img[480][640]){
+void geraImgGreyW_R(unsigned char img[linha][coluna]){
     preencherimg(img,255,0,0);
 }
 //Q5
-void geraImgGrey_R(unsigned char img[480][640],int tipo){
-    unsigned char k= geraGreyPixel(tipo);
-    preencherimg(img,k,0,0);
+int L5 = 0, C5 = 0;
+void geraImgGrey_R(unsigned char img[linha][coluna], int tipo){
+    if (L5==linha) return;
+    img [L5][C5] = geraGreyPixel(tipo);
+    C5++;
+    if (C5==coluna) {
+        L5++;
+        C5 = 0;
+    }
+    return geraImgGrey_R (img, tipo);
 }
 //Q6
 int aux_pixelMax_R(unsigned char img[linha][coluna], int row, int col, int maxValue){
@@ -161,7 +156,7 @@ int pixelMin_R(unsigned char img[linha][coluna])//Entrada da matriz
 
 //Q8
 int flag8 = -1; //usei flag = -1 para na primeira iteração flag ser igual a 0, pra ficar igual ao primeiro elemento dos arrays
-void somaPorLinhas_R(unsigned char img[linha][coluna], int soma[linha]){
+void somaPorLinhas_R(unsigned char img[linha][coluna], int somaVetor[linha]){
     flag8++;   //Essa flag conta as iterações, ajuda marcar coluna e linha, e marca o momento de mudança de posição do ponteiro soma.
     if(flag8 == linha * coluna){
         flag8 = -1; //reseta o flag para a função poder ser chamada de novo
@@ -170,12 +165,12 @@ void somaPorLinhas_R(unsigned char img[linha][coluna], int soma[linha]){
     //(flag / linha): marca em qual linha está, só vai para a próxima linha quando soma todas os elementos da mesma linha
     //(flag % coluna): marca em qual coluna está, vai para a próximo elemento da linha até atingir o valor "coluna", quando alcança, volta a 0
     //A posição do ponteiro soma só deve mudar quando a linha mudar
-    soma[flag8 / linha] += img[flag8 / linha][flag8 % coluna]; //Realiza a soma em cada posição do vetor soma
-    somaPorLinhas_R(img, soma);  //Pula para a próxima iteração
+    somaVetor[flag8 / coluna] += img[flag8 / coluna][flag8 % coluna]; //Realiza a soma em cada posição do vetor soma
+    somaPorLinhas_R(img, somaVetor);  //Pula para a próxima iteração
 }
 //Q9
 int flag9 = -1; //usei flag = -1 para na primeira iteração flag ser igual a 0, pra ficar igual ao primeiro elemento dos arrays
-void somaPorColunas_R(unsigned char img[linha][coluna], int soma[]){
+void somaPorColunas_R(unsigned char img[linha][coluna], int somaVetor2[coluna]){
     flag9++;   //Essa flag conta as iterações, ajuda marcar coluna e linha, e marca o momento de mudança de posição do ponteiro soma.
     if(flag9 == linha * coluna){
         flag9 = -1; //reseta o flag para a função poder ser chamada de novo
@@ -184,8 +179,8 @@ void somaPorColunas_R(unsigned char img[linha][coluna], int soma[]){
     //(flag / coluna): marca em qual coluna está, só vai para a próxima coluna quando soma todas os elementos da mesma coluna
     //(flag % linha): marca em qual linha está, vai para o próximo elemento da coluna até atingir o valor "linha", quando alcança, volta a 0
     //A posição do ponteiro soma só deve mudar quando a coluna mudar
-    soma[flag9 / coluna] += img[flag9 % linha][flag9 / coluna]; //Realiza a soma em cada posição do vetor soma
-    somaPorColunas_R(img, soma);   //Pula para a próxima iteração
+    somaVetor2[flag9 / linha] += img[flag9 % linha][flag9 / linha]; //Realiza a soma em cada posição do vetor soma
+    somaPorColunas_R(img, somaVetor2);   //Pula para a próxima iteração
 }
 //Q10
 int somaPorTotal_R(unsigned char img[linha][coluna]) {
@@ -212,22 +207,34 @@ int somaPorTotal_R(unsigned char img[linha][coluna]) {
     return somaPorTotal_R(img);
 }
 //Q11
-int L = 0, C = 0;  // declaração de variáveis globais para manipular na função
+int L1 = 0, C1 = 0;  // declaração de variáveis globais para manipular na função
+int count1 = 0;
 
-int quantosPixelsNaInt_R (unsigned char img[linha][coluna], unsigned char inte) {
-    int count = 0;
-    if (L >= linha) return 0;          // verifica se todas as linhas estão preenchidas
-    if (img [L][C]==inte)     // contador de frequência do inte na img
-        count++;
-    C++;
-    if (C>=coluna) {        //se completar uma coluna, pula a linha e percorre as colunas dnv
-        C = 0;
-        L++;
+int aux_quantosPixelsNaInt_R(unsigned char img[linha][coluna], unsigned char inte) {
+    if (L1 >= linha) return count1;  // Se percorreu todas as linhas, retorna o contador
+    
+    if (img[L1][C1] == inte) count1++;  // Conta se o pixel for igual ao valor procurado
+    
+    C1++;  // Avança na coluna
+    
+    if (C1 >= coluna) {  // Se percorreu todas as colunas da linha, avança para a próxima linha
+        C1 = 0;
+        L1++;
     }
-    // Retorna a soma da contagem de pixels encontrados no bloco atual e a contagem
-    // dos pixels encontrados nas chamadas recursivas seguintes.
-    return count + quantosPixelsNaInt_R (img, inte);
+    
+    return aux_quantosPixelsNaInt_R(img, inte);  // Chamada recursiva
 }
+
+// Função principal para contar pixels
+int quantosPixelsNaInt_R(unsigned char img[linha][coluna], unsigned char inte) {
+    // Reinicia as variáveis globais para uma nova contagem
+    L1 = 0;
+    C1 = 0;
+    count1 = 0;
+    
+    return aux_quantosPixelsNaInt_R(img, inte);  // Inicializa a recursão
+}
+
 //Q12
 int aux_quantosPixelsAbaixoDeInt_R(unsigned char img[linha][coluna], unsigned char Int, int row, int col, int soma){
         if(row > linha - 1) 
@@ -272,9 +279,10 @@ int quantosPixelsAbaixoDeInt_R(unsigned char img[linha][coluna], unsigned char I
 }
 //Q13
 int quantosPixelsAcimaDeInt_R(unsigned char img[linha][coluna], unsigned char inteiro){
-    return linha*coluna - quantosPixelsAbaixoDeInt_R(img, inteiro) - quantosPixelsNaInt_R(img, inteiro); 
+    return (linha*coluna) - (quantosPixelsAbaixoDeInt_R(img, inteiro) + quantosPixelsNaInt_R(img, inteiro)); 
 }
 //Q14
+/*
 int flag14 = 0;
 unsigned char pontoEquilibrio(unsigned char img[linha][coluna], unsigned char Int){
     flag14++;   //Contador para saber quando parar as iterações
@@ -298,3 +306,4 @@ unsigned char pontoEquilibrio(unsigned char img[linha][coluna], unsigned char In
     }
     pontoEquilibrio(*img+1, Int); //Retorna o próximo elemento da matriz
 }
+*/
