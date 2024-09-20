@@ -1,4 +1,7 @@
 #include "procimg.c"
+
+void preencheimg(unsigned char img[linha][coluna],int pixel,int i,int j);
+
 //Q1
 void geraLinhaR(unsigned char array [], int tipo);
 /*
@@ -29,15 +32,14 @@ void geraImgGreyB_R(unsigned char img[linha][coluna]);
     * img: matriz onde a imagem será preenchida.
 */
 //Q4
-void preencheimg(unsigned char img[480][640],int pixel,int i,int j);
-void geraImgGreyW_R(unsigned char img[480][640]);
+void geraImgGreyW_R(unsigned char img[linha][coluna]);
 /*
     *Função que preenche uma imagem 640x480 com 255 utilizando de recursividade
     *Parâmetro:
     * img: matriz onde a imagem será preenchida.
 */
 //Q5
-void geraImgGrey_R(unsigned char img[480][640],int tipo);
+void geraImgGrey_R(unsigned char img[linha][coluna],int tipo);
 /*
    *Função que utilizando da função geraGreyPixel preenche a imagem com pixels aleatórios. 
    *Parâmetro:
@@ -61,7 +63,7 @@ int aux_pixelMin_R(unsigned char img[linha][coluna], int row, int col, int minVa
   *img: matriz onde a imagem será preenchida.
 */
 //Q8
-void somaPorLinhas_R(unsigned char img[linha][coluna], int soma[linha]);
+void somaPorLinhas_R(unsigned char img[linha][coluna], int somaVetor[linha]);
 /*
   *Função que soma os elementos de cada linha da matriz.
   *Parãmetros:
@@ -69,7 +71,7 @@ void somaPorLinhas_R(unsigned char img[linha][coluna], int soma[linha]);
   *soma: vetor soma por cada linha.
 */
 //Q9
-void somaPorColunas_R(unsigned char img[linha][coluna], int soma[coluna]);
+void somaPorColunas_R(unsigned char img[linha][coluna], int somaVetor2[coluna]);
 /*
   *Função que soma os elementos de cada coluna da matriz.
   *Parãmetros:
@@ -84,6 +86,7 @@ int somaPorTotal_R(unsigned char img[linha][coluna]);
   * img: matriz onde a imagem será preenchida
 */
 //Q11
+int aux_quantosPixelsNaInt_R(unsigned char img[linha][coluna], unsigned char inte);
 int quantosPixelsNaInt_R (unsigned char img[linha][coluna], unsigned char inte);
 /* 
     *retorna a quantidade de pixels, na imagem img, que possuem uma intensidade 

@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "procimg.h"
 
+#define altura 10
+#define largura 10
+
 //ANTERIORES
 unsigned char geraGreyPixel(int tipo){
     int i = rand() % 100 + 1;
@@ -26,42 +29,39 @@ unsigned char geraGreyPixel(int tipo){
     }
 }
 
-void imgHistogram(unsigned char img[480][640], int hist[256]){
-    for(int i = 0; i < 640; i++){
-        for(int j = 0; j < 480; j++){
+void imgHistogram(unsigned char img[altura][largura], int hist[256]){
+    for(int i = 0; i < largura; i++){
+        for(int j = 0; j < altura; j++){
             hist[(img[i][j])] += 1;
         }
     }
 }
 
-void imgRandom(unsigned char img[480][640]){
-    for(int i = 0; i < 640; i++){
-        for(int j = 0; j < 480; j++){
+void imgRandom(unsigned char img[altura][largura]){
+    for(int i = 0; i < largura; i++){
+        for(int j = 0; j < altura; j++){
             img[i][j] = (unsigned char)(rand()%256);
         }
     }
 }
 
-
-//AUXILIAR
-void displayImg(unsigned char img[480][640]){
-    for(int y = 0; y < 480; y++){
-        for(int x = 0; x < 640; x++){
+void displayImg(unsigned char img[altura][largura]){
+    for(int y = 0; y < altura; y++){
+        for(int x = 0; x < largura; x++){
             printf("%3d " , img[y][x]);
         }
         printf("\n");
     }
 }
 
-
 ///////Q1
-void geraLinhaR(unsigned char lin[640], int tipo){
-    geraLinhaRecursiva(lin, tipo, 639);
+void geraLinhaR(unsigned char lin[largura], int tipo){
+    geraLinhaRecursiva(lin, tipo, largura - 1);
 
     return;
 }
 
-void geraLinhaRecursiva(unsigned char lin[640], int tipo, int n){
+void geraLinhaRecursiva(unsigned char lin[largura], int tipo, int n){
     if(n < 0)
         return;
 
@@ -72,18 +72,18 @@ void geraLinhaRecursiva(unsigned char lin[640], int tipo, int n){
 
 
 ///////Q2
-void geraImgGreyFull_R(unsigned char img[480][640], unsigned char pixel){
-    geraImgGreyFull_Recursiva(img, pixel, 479, 639);
+void geraImgGreyFull_R(unsigned char img[altura][largura], unsigned char pixel){
+    geraImgGreyFull_Recursiva(img, pixel, altura - 1, largura - 1);
 }
 
-void geraImgGreyFull_Recursiva(unsigned char img[480][640], unsigned char pixel, int y, int x){
+void geraImgGreyFull_Recursiva(unsigned char img[altura][largura], unsigned char pixel, int y, int x){
     
     if(y < 0){
         return;
     }
 
     if(x < 0){
-        geraImgGreyFull_Recursiva(img, pixel, y-1, 639);
+        geraImgGreyFull_Recursiva(img, pixel, y-1, largura - 1);
         return;
     }
 
@@ -94,18 +94,18 @@ void geraImgGreyFull_Recursiva(unsigned char img[480][640], unsigned char pixel,
 
 
 ///////Q3
-void geraImgGreyB_R(unsigned char img[480][640]){
-    geraImgGreyB_Recursiva(img, 479, 639);
+void geraImgGreyB_R(unsigned char img[altura][largura]){
+    geraImgGreyB_Recursiva(img, altura - 1, largura - 1);
 }
 
-void geraImgGreyB_Recursiva(unsigned char img[480][640], int y, int x){
+void geraImgGreyB_Recursiva(unsigned char img[altura][largura], int y, int x){
 
     if(y < 0){
         return;
     }
 
     if(x < 0){
-        geraImgGreyB_Recursiva(img, y-1, 639);
+        geraImgGreyB_Recursiva(img, y-1, largura - 1);
         return;
     }
 
@@ -116,18 +116,18 @@ void geraImgGreyB_Recursiva(unsigned char img[480][640], int y, int x){
 
 
 ///////Q4
-void geraImgGreyW_R(unsigned char img[480][640]){
-    geraImgGreyW_Recursiva(img, 479, 639);
+void geraImgGreyW_R(unsigned char img[altura][largura]){
+    geraImgGreyW_Recursiva(img, altura - 1, largura - 1);
 }
 
-void geraImgGreyW_Recursiva(unsigned char img[480][640], int y, int x){
+void geraImgGreyW_Recursiva(unsigned char img[altura][largura], int y, int x){
 
     if(y < 0){
         return;
     }
 
     if(x < 0){
-        geraImgGreyW_Recursiva(img, y-1, 639);
+        geraImgGreyW_Recursiva(img, y-1, largura - 1);
         return;
     }
 
@@ -138,18 +138,18 @@ void geraImgGreyW_Recursiva(unsigned char img[480][640], int y, int x){
 
 
 ///////Q5
-void geraImgGrey_R(unsigned char img[480][640], int tipo){
-    geraImgGrey_Recursiva(img, tipo, 479, 639);
+void geraImgGrey_R(unsigned char img[altura][largura], int tipo){
+    geraImgGrey_Recursiva(img, tipo, altura - 1, largura - 1);
 }
 
-void geraImgGrey_Recursiva(unsigned char img[480][640], int tipo, int y, int x){
+void geraImgGrey_Recursiva(unsigned char img[altura][largura], int tipo, int y, int x){
     
     if(y < 0){
         return;
     }
 
     if(x < 0){
-        geraImgGrey_Recursiva(img, tipo, y-1, 639);
+        geraImgGrey_Recursiva(img, tipo, y-1, largura - 1);
         return;
     }
 
@@ -160,14 +160,14 @@ void geraImgGrey_Recursiva(unsigned char img[480][640], int tipo, int y, int x){
 
 
 ///////Q6
-int pixelMax_R(unsigned char img[480][640]){
-    return pixelMax_Recursiva(img, 479, 639);
+int pixelMax_R(unsigned char img[altura][largura]){
+    return pixelMax_Recursiva(img, altura - 1, largura - 1);
 }
 
-int pixelMax_Recursiva(unsigned char img[480][640], int y, int x){
+int pixelMax_Recursiva(unsigned char img[altura][largura], int y, int x){
     
     if(x < 0){
-        return pixelMax_Recursiva(img, y-1, 639);
+        return pixelMax_Recursiva(img, y-1, largura - 1);
     }
 
     if(y < 0){
@@ -181,14 +181,14 @@ int pixelMax_Recursiva(unsigned char img[480][640], int y, int x){
 
 
 ///////Q7
-int pixelMin_R(unsigned char img[480][640]){
-    return pixelMin_Recursiva(img, 479, 639);
+int pixelMin_R(unsigned char img[altura][largura]){
+    return pixelMin_Recursiva(img, altura - 1, largura - 1);
 }
 
-int pixelMin_Recursiva(unsigned char img[480][640], int y, int x){
+int pixelMin_Recursiva(unsigned char img[altura][largura], int y, int x){
     
     if(x < 0){
-        return pixelMin_Recursiva(img, y-1, 639);
+        return pixelMin_Recursiva(img, y-1, largura - 1);
     }
 
     if(y < 0){
@@ -202,16 +202,16 @@ int pixelMin_Recursiva(unsigned char img[480][640], int y, int x){
 
 
 ///////Q8
-void somaPorLinhas_R(unsigned char img[480][640], int soma[480]){
-    for(int i = 0; i < 480; i++)
+void somaPorLinhas_R(unsigned char img[altura][largura], int soma[altura]){
+    for(int i = 0; i < altura; i++)
         soma[i] = 0;
 
-    somaPorLinhas_Recursiva(img, soma, 479, 639);
+    somaPorLinhas_Recursiva(img, soma, altura - 1, largura - 1);
 }
 
-void somaPorLinhas_Recursiva(unsigned char img[480][640], int soma[480], int y, int x){
+void somaPorLinhas_Recursiva(unsigned char img[altura][largura], int soma[altura], int y, int x){
     if(x < 0){
-        somaPorLinhas_Recursiva(img, soma, y-1, 639);
+        somaPorLinhas_Recursiva(img, soma, y-1, largura - 1);
         return;
     }
 
@@ -225,17 +225,17 @@ void somaPorLinhas_Recursiva(unsigned char img[480][640], int soma[480], int y, 
 
 
 ///////Q9
-void somaPorColunas_R(unsigned char img[480][640], int soma[640]){
-    for(int i = 0; i < 640; i++)
+void somaPorColunas_R(unsigned char img[altura][largura], int soma[largura]){
+    for(int i = 0; i < largura; i++)
         soma[i] = 0;
 
-    somaPorColunas_Recursiva(img, soma, 479, 639);
+    somaPorColunas_Recursiva(img, soma, altura - 1, largura - 1);
 }
 
-void somaPorColunas_Recursiva(unsigned char img[480][640], int soma[640], int y, int x){
+void somaPorColunas_Recursiva(unsigned char img[altura][largura], int soma[largura], int y, int x){
     
     if(y < 0){
-        somaPorColunas_Recursiva(img, soma, 479, x-1);
+        somaPorColunas_Recursiva(img, soma, altura - 1, x-1);
         return;
     }
 
@@ -249,13 +249,13 @@ void somaPorColunas_Recursiva(unsigned char img[480][640], int soma[640], int y,
 
 
 ///////Q10
-int somaPorTotal_R(unsigned char img[480][640]){
-    return somaPorTotal_Recursiva(img, 479, 639);    
+int somaPorTotal_R(unsigned char img[altura][largura]){
+    return somaPorTotal_Recursiva(img, altura - 1, largura - 1);    
 }
 
-int somaPorTotal_Recursiva(unsigned char img[480][640], int y, int x){
+int somaPorTotal_Recursiva(unsigned char img[altura][largura], int y, int x){
     if(x < 0){
-        return somaPorTotal_Recursiva(img, y-1, 639);
+        return somaPorTotal_Recursiva(img, y-1, largura - 1);
     }
 
     if(y < 0){
@@ -269,14 +269,14 @@ int somaPorTotal_Recursiva(unsigned char img[480][640], int y, int x){
 
 
 ///////Q11
-int quantosPixelsNaInt_R(unsigned char img[480][640], unsigned char intensidade){
-    return quantosPixelsNaInt_Recursiva(img, intensidade, 479, 639);
+int quantosPixelsNaInt_R(unsigned char img[altura][largura], unsigned char intensidade){
+    return quantosPixelsNaInt_Recursiva(img, intensidade, altura - 1, largura - 1);
 }
 
-int quantosPixelsNaInt_Recursiva(unsigned char img[480][640], unsigned char intensidade , int y, int x){
+int quantosPixelsNaInt_Recursiva(unsigned char img[altura][largura], unsigned char intensidade , int y, int x){
 
     if(x < 0){
-        return quantosPixelsNaInt_Recursiva(img, intensidade, y-1, 639);
+        return quantosPixelsNaInt_Recursiva(img, intensidade, y-1, largura - 1);
     }
 
     if(y < 0){
@@ -293,13 +293,13 @@ int quantosPixelsNaInt_Recursiva(unsigned char img[480][640], unsigned char inte
 
 
 ///////Q12
-int quantosPixelsAbaixoDeInt_R(unsigned char img[480][640], unsigned char intensidade){
-    return quantosPixelsAbaixoDeInt_Recursiva(img, intensidade, 479, 639);
+int quantosPixelsAbaixoDeInt_R(unsigned char img[altura][largura], unsigned char intensidade){
+    return quantosPixelsAbaixoDeInt_Recursiva(img, intensidade, altura - 1, largura - 1);
 }
 
-int quantosPixelsAbaixoDeInt_Recursiva(unsigned char img[480][640], unsigned char intensidade , int y, int x){
+int quantosPixelsAbaixoDeInt_Recursiva(unsigned char img[altura][largura], unsigned char intensidade , int y, int x){
     if(x < 0){
-        return quantosPixelsAbaixoDeInt_Recursiva(img, intensidade, y-1, 639);
+        return quantosPixelsAbaixoDeInt_Recursiva(img, intensidade, y-1, largura - 1);
     }
 
     if(y < 0){
@@ -316,9 +316,9 @@ int quantosPixelsAbaixoDeInt_Recursiva(unsigned char img[480][640], unsigned cha
 
 
 ///////Q13
-int quantosPixelsAcimaDeInt_R(unsigned char img[480][640], unsigned char intensidade){
+int quantosPixelsAcimaDeInt_R(unsigned char img[altura][largura], unsigned char intensidade){
     
-    int totalPixels = 480 * 640;
+    int totalPixels = altura * largura;
 
     int pixelsAbaixo = quantosPixelsAbaixoDeInt_R(img, intensidade);
     int pixelsIgual = quantosPixelsNaInt_R(img, intensidade);
@@ -326,17 +326,3 @@ int quantosPixelsAcimaDeInt_R(unsigned char img[480][640], unsigned char intensi
     return totalPixels - (pixelsAbaixo + pixelsIgual);
 
 }
-
-
-/*
-///////Q14
-unsigned char pontoEquilibrio(unsigned char img[480][640], unsigned char intensidade){
-    
-    int qtdeIntensidadeMinima = quantosPixelsNaInt_R(img, 0);
-    int qtdeIntensidadeMaxima = quantosPixelsNaInt_R(img, 255);
-
-    int media = (qtdeIntensidadeMaxima * 255) / (qtdeIntensidadeMinima + qtdeIntensidadeMaxima);
-
-    
-}
-//*/

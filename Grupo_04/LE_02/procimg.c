@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define HEIGTH 75
+#define WIDTH 100
+
 // Q1
 unsigned char geraGreyPixel(int tipo)
 {
@@ -94,9 +97,9 @@ void geraImgGrey_R(unsigned char img[480][640], int tipo)
 }
 
 // Q6
-int pixelMax_Aux(unsigned char img[480][640], int linha, int coluna, int currentValue)
+int pixelMax_Aux(unsigned char img[HEIGTH][WIDTH], int linha, int coluna, int currentValue)
 {
-  if (linha == 480)
+  if (linha == HEIGTH)
   {
     return currentValue;
   }
@@ -106,7 +109,7 @@ int pixelMax_Aux(unsigned char img[480][640], int linha, int coluna, int current
     currentValue = img[linha][coluna];
   }
 
-  if (coluna < 639)
+  if (coluna < WIDTH - 1)
   {
     return pixelMax_Aux(img, linha, coluna + 1, currentValue);
   }
@@ -116,15 +119,15 @@ int pixelMax_Aux(unsigned char img[480][640], int linha, int coluna, int current
   }
 }
 
-int pixelMax_R(unsigned char img[480][640])
+int pixelMax_R(unsigned char img[HEIGTH][WIDTH])
 {
   return pixelMax_Aux(img, 0, 0, 0);
 }
 
 // Q7
-int pixelMin_Aux(unsigned char img[480][640], int linha, int coluna, int currentValue)
+int pixelMin_Aux(unsigned char img[HEIGTH][WIDTH], int linha, int coluna, int currentValue)
 {
-  if (linha == 480)
+  if (linha == HEIGTH)
   {
     return currentValue;
   }
@@ -134,7 +137,7 @@ int pixelMin_Aux(unsigned char img[480][640], int linha, int coluna, int current
     currentValue = img[linha][coluna];
   }
 
-  if (coluna < 639)
+  if (coluna < WIDTH - 1)
   {
     return pixelMin_Aux(img, linha, coluna + 1, currentValue);
   }
@@ -144,96 +147,99 @@ int pixelMin_Aux(unsigned char img[480][640], int linha, int coluna, int current
   }
 }
 
-int pixelMin_R(unsigned char img[480][640])
+int pixelMin_R(unsigned char img[HEIGTH][WIDTH])
 {
   return pixelMin_Aux(img, 0, 0, 255);
 }
 
 // Q8
-void somaPorLinhas_RAux(unsigned char img[480][640], int soma[480], int linha, int coluna)
+void somaPorLinhas_RAux(unsigned char img[HEIGTH][WIDTH], int soma[HEIGTH], int linha, int coluna)
 {
-  if (linha >= 480)
+  if (linha >= HEIGTH)
   {
     return;
   }
 
-  soma[linha] = soma[linha] + img[linha][coluna];
+  soma[linha] += img[linha][coluna];
 
-  if (coluna <= 639)
+  if (coluna < WIDTH - 1)
   {
-    return somaPorLinhas_RAux(img, soma, linha, coluna + 1);
+    somaPorLinhas_RAux(img, soma, linha, coluna + 1);
   }
   else
   {
-    return somaPorLinhas_RAux(img, soma, linha + 1, 0);
+    somaPorLinhas_RAux(img, soma, linha + 1, 0);
   }
 }
 
-void somaPorLinhas_R(unsigned char img[480][640], int soma[480])
+void somaPorLinhas_R(unsigned char img[HEIGTH][WIDTH], int soma[HEIGTH])
 {
+  for (int i = 0; i < HEIGTH; i++)
+    for (int j = 0; j < WIDTH; j++)
+      img[i][j] = 1;
   somaPorLinhas_RAux(img, soma, 0, 0);
 }
 
 // Q9
-void somaPorColunas_RAux(unsigned char img[480][640], int soma[640], int linha, int coluna)
+void somaPorColunas_RAux(unsigned char img[HEIGTH][WIDTH], int soma[WIDTH], int linha, int coluna)
 {
-  if (coluna >= 640)
+  if (coluna >= WIDTH)
   {
     return;
   }
-  soma[coluna] = soma[coluna] + img[linha][coluna];
-  if (linha < 479)
+
+  soma[coluna] += img[linha][coluna];
+  if (linha < HEIGTH - 1)
   {
-    return somaPorColunas_RAux(img, soma, linha + 1, coluna);
+    somaPorColunas_RAux(img, soma, linha + 1, coluna);
   }
   else
   {
-    return somaPorColunas_RAux(img, soma, 0, coluna + 1);
+    somaPorColunas_RAux(img, soma, 0, coluna + 1);
   }
 }
 
-void somaPorColunas_R(unsigned char img[480][640], int soma[640])
+void somaPorColunas_R(unsigned char img[HEIGTH][WIDTH], int soma[WIDTH])
 {
+
+  for (int i = 0; i < HEIGTH; i++)
+    for (int j = 0; j < WIDTH; j++)
+      img[i][j] = 1;
+
   somaPorColunas_RAux(img, soma, 0, 0);
 }
 
-int auxSomaTotal(unsigned char img[480][640], int linha, int coluna)
+int auxSomaTotal(int somaLinha[HEIGTH], int linha, int currentValue)
 {
-  if (coluna >= 640)
-  {
-    return 0;
-  }
-  else
-  {
-    return img[linha][coluna] + auxSomaTotal(img, linha, coluna + 1);
-  }
+  if (linha == 0)
+    return currentValue;
+
+  currentValue += somaLinha[linha - 1];
+
+  return auxSomaTotal(somaLinha, linha - 1, currentValue);
 }
 
 // Q10
-int somaPorTotal_R(unsigned char img[480][640], int linha)
+int somaPorTotal_R(unsigned char img[HEIGTH][WIDTH])
 {
-  if (linha >= 480)
-  {
-    return 0;
-  }
-  else
-  {
-    return auxSomaTotal(img, linha, 0) + somaPorTotal_R(img, linha + 1);
-  }
+  int somaLinha[HEIGTH] = {0};
+  somaPorLinhas_R(img, somaLinha);
+
+  return auxSomaTotal(somaLinha, HEIGTH, 0);
 }
 
 int pixelsNumber = 0; // Variavel global aplicavel a 11;
 int i, j;             // Variavel global aplicavel a 11;
 
 // Q11
-int quantosPixelsNaInt_R(unsigned char img[480][640], unsigned char value)
+int quantosPixelsNaInt_R(unsigned char img[HEIGTH][WIDTH], unsigned char value)
 {
-  if ((i + j) == 1120)
+  if ((i + j) == HEIGTH + WIDTH)
     return pixelsNumber;
   if (img[i][j] == value)
     pixelsNumber++;
   j++;
-  if (j > 640)
+  if (j > WIDTH)
   {
     j = 0;
     i++;
@@ -241,30 +247,34 @@ int quantosPixelsNaInt_R(unsigned char img[480][640], unsigned char value)
   quantosPixelsNaInt_R(img, value);
 }
 int pixelsAbaixo = 0; // Variavel global aplicavel a 12;
-int x, y;             // Variavel global aplicavel a 12;
+int x = 0, y = 0;     // Variavel global aplicavel a 12;
 
 // Q12
-int quantosPixelsAbaixoDeInt_R(unsigned char img[480][640], unsigned char value)
+int quantosPixelsAbaixoDeInt_R(unsigned char img[HEIGTH][WIDTH], unsigned char value)
 {
-  if ((x + y) == 1120)
+  if ((x + y) + 2 == WIDTH + HEIGTH)
     return pixelsAbaixo;
+
   if (img[x][y] < value)
     pixelsAbaixo++;
+
   y++;
-  if (y > 640)
+
+  if (y >= WIDTH)
   {
     y = 0;
     x++;
   }
+
   quantosPixelsAbaixoDeInt_R(img, value);
 }
 
 // Q13
-int quantosPixelsAcimaDeInt_R(unsigned char img[480][640], unsigned char value)
+int quantosPixelsAcimaDeInt_R(unsigned char img[HEIGTH][WIDTH], unsigned char value)
 {
   int abaixo = quantosPixelsAbaixoDeInt_R(img, value);
   int iguais = quantosPixelsNaInt_R(img, value);
   printf("\nabaixo == %i", abaixo);
   printf("\niguais == %i", iguais);
-  return (480 * 640) - (abaixo + iguais);
+  return (HEIGTH * WIDTH) - (abaixo + iguais);
 }
