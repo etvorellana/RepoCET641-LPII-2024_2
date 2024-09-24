@@ -53,4 +53,8 @@ dkms.conf
 AulaT02/output/*
 AulaT03/output/*
 AulaT04/output/*
+AulaT05/output/*
+AulaT06/output/*
+AulaP02/build/*
+PAVE/*
 .vscode/*
