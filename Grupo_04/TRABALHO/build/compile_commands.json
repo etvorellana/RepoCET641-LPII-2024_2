@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/build",
+  "command": "/usr/sbin/g++ -isystem /usr/local/include/opencv4 -g -o CMakeFiles/TRABALHO.dir/src/main.cpp.o -c /home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/src/main.cpp",
+  "file": "/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/src/main.cpp",
+  "output": "CMakeFiles/TRABALHO.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/build",
+  "command": "/usr/sbin/g++ -isystem /usr/local/include/opencv4 -g -o CMakeFiles/TRABALHO.dir/src/Interface.cpp.o -c /home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/src/Interface.cpp",
+  "file": "/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/src/Interface.cpp",
+  "output": "CMakeFiles/TRABALHO.dir/src/Interface.cpp.o"
+},
+{
+  "directory": "/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/build",
+  "command": "/usr/sbin/g++ -isystem /usr/local/include/opencv4 -g -o CMakeFiles/TRABALHO.dir/src/Filters.cpp.o -c /home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/src/Filters.cpp",
+  "file": "/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO/src/Filters.cpp",
+  "output": "CMakeFiles/TRABALHO.dir/src/Filters.cpp.o"
+}
+]

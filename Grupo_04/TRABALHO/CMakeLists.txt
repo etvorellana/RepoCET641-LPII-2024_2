@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.28)
+project(TRABALHO)
+find_package( OpenCV REQUIRED )
+add_executable( TRABALHO src/main.cpp src/Interface.cpp src/Filters.cpp)
+target_link_libraries( TRABALHO ${OpenCV_LIBS} )
