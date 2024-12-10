@@ -11,9 +11,6 @@ using namespace cv;
 
 class Filters
 {
-private:
-  void validate(Mat &image);
-
 public:
   void blur(Mat &inputImage);
   void medianBlur(Mat &inputImage);
