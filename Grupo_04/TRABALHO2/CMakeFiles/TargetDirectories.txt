@@ -1,0 +1,3 @@
+/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO2/CMakeFiles/TRABALHO2.dir
+/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO2/CMakeFiles/edit_cache.dir
+/home/hildon/Documentos/TUDO/UESC/LP2/Grupo_04/TRABALHO2/CMakeFiles/rebuild_cache.dir

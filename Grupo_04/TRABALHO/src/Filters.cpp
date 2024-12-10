@@ -11,6 +11,7 @@ void Filters::gaussianBlur(Mat &image)
   cout << "Aplicando filtro GaussianBlur..." << endl;
   cv::GaussianBlur(image, image, Size(15, 15), 0);
 }
+
 void Filters::medianBlur(Mat &image)
 {
   cout << "Aplicando filtro medianBlur..." << endl;

@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.28)
+project(TRABALHO2)
+find_package( OpenCV REQUIRED )
+add_executable( TRABALHO2 src/main.cpp)
+target_link_libraries( TRABALHO2 ${OpenCV_LIBS} )
